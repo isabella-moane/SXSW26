@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El "so what" de SXSW 26 — La Victoria Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --color-text-primary:#1a1a1a;
+    --color-text-secondary:#555;
+    --color-text-tertiary:#888;
+    --color-background-primary:#fff;
+    --color-background-secondary:#f6f5f2;
+    --color-border-tertiary:rgba(0,0,0,0.1);
+    --color-border-secondary:rgba(0,0,0,0.2);
+    --border-radius-md:8px;
+    --border-radius-lg:12px;
+    --font-sans:'Plus Jakarta Sans',sans-serif;
+    --font-serif:'DM Serif Display',serif;
+    --font-mono:'DM Mono',monospace;
+  }
+  @media(prefers-color-scheme:dark){
+    :root{
+      --color-text-primary:#f0ede8;
+      --color-text-secondary:#aaa;
+      --color-text-tertiary:#666;
+      --color-background-primary:#1a1918;
+      --color-background-secondary:#242220;
+      --color-border-tertiary:rgba(255,255,255,0.1);
+      --color-border-secondary:rgba(255,255,255,0.2);
+    }
+  }
+  html{font-size:16px}
+  body{font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-secondary);min-height:100vh;padding:2rem 1rem}
+  .plat{max-width:820px;margin:0 auto;background:var(--color-background-primary);border-radius:16px;padding:2rem;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+  .hero{padding:2rem 0 1.75rem;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.75rem;text-align:center}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;gap:8px}
+  .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:18px;height:0.5px;background:var(--color-border-secondary)}
+  .hero h1{font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;margin-bottom:.5rem}
+  .hero h1 em{font-style:italic;color:#C94B2C}
+  .hero-sub{font-size:.875rem;color:var(--color-text-secondary);max-width:500px;margin:0 auto;line-height:1.65}
+  .nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+  .nbtn{font-family:var(--font-sans);font-size:11px;font-weight:500;padding:6px 16px;border-radius:100px;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s;letter-spacing:.02em}
+  .nbtn:hover{border-color:var(--color-text-primary);color:var(--color-text-primary)}
+  .nbtn.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+  .sec{display:none}.sec.on{display:block}
+  .stag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:.3rem;font-family:var(--font-mono);display:flex;align-items:center;gap:8px}
+  .stag::before{content:'';width:18px;height:0.5px;background:var(--color-border-secondary)}
+  .stitle{font-family:var(--font-serif);font-size:1.5rem;line-height:1.2;font-weight:400;margin-bottom:.4rem}
+  .stitle em{font-style:italic}
+  .sdesc{font-size:.82rem;color:var(--color-text-secondary);line-height:1.65;margin-bottom:1.5rem}
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-bottom:1.5rem}
+  .stat{background:var(--color-background-secondary);border-radius:8px;padding:.75rem;text-align:center}
+  .stat-num{font-family:var(--font-serif);font-size:1.5rem;color:var(--color-text-primary);line-height:1}
+  .stat-lbl{font-size:10px;color:var(--color-text-tertiary);margin-top:3px;line-height:1.3}
+  .bigquote{background:var(--color-background-secondary);border-radius:12px;padding:1.25rem 1.5rem;border-left:2px solid #C94B2C;margin-bottom:1.5rem}
+  .bigquote p{font-family:var(--font-serif);font-size:.975rem;font-style:italic;line-height:1.6;color:var(--color-text-primary)}
+  .bigquote .attr{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin-top:.5rem}
+  .pregunta-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-tertiary);font-family:var(--font-mono);margin-bottom:.5rem}
+  .pregunta{font-family:var(--font-serif);font-size:clamp(1.05rem,2.5vw,1.3rem);line-height:1.35;color:#1D9E75;margin-bottom:1rem;font-weight:400;font-style:italic}
+  .body-text{font-size:.82rem;color:var(--color-text-secondary);line-height:1.75;margin-bottom:1rem}
+  .body-text strong{color:var(--color-text-primary);font-weight:500}
+  .northstar{border:0.5px solid var(--color-border-secondary);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+  .northstar::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:#1D9E75}
+  .ns-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:.5rem}
+  .ns-q{font-family:var(--font-serif);font-size:clamp(1rem,2.5vw,1.25rem);line-height:1.3;color:var(--color-text-primary);margin-bottom:.75rem;font-weight:400}
+  .ns-body{font-size:.78rem;color:var(--color-text-secondary);line-height:1.7;margin-bottom:.75rem}
+  .ver-mas{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-tertiary);cursor:pointer;border:none;background:none;padding:0;font-family:var(--font-sans);transition:color .15s}
+  .ver-mas:hover{color:var(--color-text-primary)}
+  .expandable{display:none;margin-top:.75rem;padding-top:.75rem;border-top:0.5px solid var(--color-border-tertiary)}
+  .expandable p{font-size:.78rem;color:var(--color-text-secondary);line-height:1.7;font-style:italic}
+  .expandable.open{display:block}
+  .divider{height:0.5px;background:var(--color-border-tertiary);margin:1.5rem 0}
+  .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tag{font-size:10px;padding:3px 9px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary)}
+  .ocard{border:0.5px solid var(--color-border-tertiary);border-radius:14px;overflow:hidden;margin-bottom:.875rem;background:var(--color-background-primary);cursor:pointer;transition:border-color .15s}
+  .ocard:hover,.ocard.open{border-color:var(--color-border-secondary)}
+  .ohead{display:flex;align-items:flex-start;gap:12px;padding:1.25rem}
+  .onum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px;font-family:var(--font-mono)}
+  .ometa{flex:1;min-width:0}
+  .otype{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;font-family:var(--font-mono)}
+  .otitle{font-family:var(--font-serif);font-size:1.05rem;line-height:1.3;font-weight:400;margin-bottom:.25rem}
+  .ohook{font-size:.78rem;color:var(--color-text-secondary);line-height:1.5;font-style:italic}
+  .otog{font-size:18px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;margin-top:2px;line-height:1;font-weight:300}
+  .ocard.open .otog{transform:rotate(45deg)}
+  .obody{display:none;border-top:0.5px solid var(--color-border-tertiary)}
+  .ocard.open .obody{display:block}
+  .obody-inner{padding:1.1rem 1.25rem}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:.5rem}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-top:.25rem}
+  .col-label,.ocol-head{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+  .col ul,.ocol ul{list-style:none;padding:0}
+  .col ul li,.ocol ul li{font-size:.78rem;color:var(--color-text-secondary);line-height:1.6;padding:3px 0 3px 13px;position:relative}
+  .col ul li::before,.ocol ul li::before{content:"→";position:absolute;left:0;font-size:9px;top:5px}
+  .sowhat{border-radius:8px;padding:.875rem;margin-top:.5rem;border:0.5px dashed}
+  .sw-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;font-weight:500}
+  .sowhat p{font-size:.78rem;line-height:1.65;font-style:italic;font-family:var(--font-serif)}
+  .pills{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.875rem}
+  .pill{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary)}
+  .btext{font-size:.82rem;color:var(--color-text-secondary);line-height:1.75;margin-bottom:.75rem}
+  .btext em{font-style:italic}
+  .quote-big{font-family:var(--font-serif);font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.4;font-style:italic;margin-bottom:.35rem}
+  .quote-attr{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:1rem}
+  .graph-wrap{background:var(--color-background-secondary);border-radius:8px;padding:1rem;margin-bottom:1rem}
+  .graph-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:.75rem}
+  .tension-note{border-radius:8px;padding:.875rem;margin-top:.75rem;border:0.5px dashed}
+  .tnote-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;font-weight:500}
+  .tnote-text{font-size:.78rem;line-height:1.65;font-style:italic;font-family:var(--font-serif)}
+  .scard{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:0.5px solid var(--color-border-tertiary);align-items:flex-start}
+  .scard:last-child{border-bottom:none}
+  .sicon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
+  .scontent{flex:1;min-width:0}
+  .sfrom{font-size:11px;color:var(--color-text-tertiary);text-decoration:line-through;margin-bottom:3px;font-family:var(--font-mono);letter-spacing:.02em}
+  .sarr{font-size:11px;color:var(--color-text-tertiary);margin-bottom:3px}
+  .sto{font-size:.95rem;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:.5rem}
+  .sdesc2{font-size:.78rem;color:var(--color-text-secondary);line-height:1.7;margin-bottom:.625rem}
+  .sdesc2 em{font-style:italic}
+  .lvl-bar{display:flex;gap:8px;align-items:flex-start;padding:.625rem .75rem;border-radius:8px;background:var(--color-background-secondary);border-left:2px solid var(--color-border-secondary)}
+  .lvl-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);flex-shrink:0;margin-top:1px}
+  .lvl-text{font-size:.75rem;color:var(--color-text-secondary);line-height:1.65}
+  .subsection{margin-top:2rem;padding-top:1.5rem;border-top:0.5px solid var(--color-border-tertiary)}
+  .sub-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+  .sub-label::after{content:'';flex:1;height:0.5px;background:var(--color-border-tertiary)}
+  .sub-desc{font-size:.78rem;color:var(--color-text-secondary);line-height:1.65;margin-bottom:1.25rem}
+  .gcard{border:0.5px solid var(--color-border-tertiary);border-radius:12px;overflow:hidden;margin-bottom:.75rem;background:var(--color-background-primary);cursor:pointer;transition:border-color .15s}
+  .gcard:hover,.gcard.open{border-color:var(--color-border-secondary)}
+  .gcard-head{display:flex;align-items:center;gap:10px;padding:.875rem 1rem}
+  .gshift-wrap{flex:1}
+  .gshift-from{font-size:10px;color:var(--color-text-tertiary);text-decoration:line-through;font-family:var(--font-mono);letter-spacing:.02em;margin-bottom:1px}
+  .garr{font-size:10px;color:var(--color-text-tertiary);margin-bottom:1px}
+  .gshift-to{font-size:.88rem;font-weight:500;color:var(--color-text-primary)}
+  .gtog{font-size:16px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;line-height:1;font-weight:300}
+  .gcard.open .gtog{transform:rotate(45deg)}
+  .gcard-body{display:none;border-top:0.5px solid var(--color-border-tertiary);padding:.875rem 1rem}
+  .gcard.open .gcard-body{display:block}
+  .gdesc{font-size:.78rem;color:var(--color-text-secondary);line-height:1.65;margin-bottom:.75rem}
+  .glvl{background:#E6F1FB;border-radius:8px;padding:.625rem .75rem;border-left:2px solid #378ADD}
+  .glvl-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#0C447C;margin-bottom:.3rem}
+  .glvl-text{font-size:.75rem;color:#0C447C;line-height:1.65}
+  .so-what-google{background:var(--color-background-secondary);border-radius:10px;padding:.875rem 1rem;margin-top:1rem;border-left:2px solid #378ADD}
+  .sowg-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#0C447C;margin-bottom:.3rem}
+  .sowg-text{font-size:.78rem;color:var(--color-text-secondary);line-height:1.65}
+  .pcard{border:0.5px solid var(--color-border-tertiary);border-radius:14px;overflow:hidden;margin-bottom:.875rem;background:var(--color-background-primary);cursor:pointer;transition:border-color .15s}
+  .pcard:hover,.pcard.open{border-color:var(--color-border-secondary)}
+  .phead{display:flex;align-items:flex-start;gap:12px;padding:1.25rem}
+  .pnum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px;font-family:var(--font-mono)}
+  .ptag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;font-family:var(--font-mono)}
+  .ptitle{font-family:var(--font-serif);font-size:1.05rem;line-height:1.3;font-weight:400;margin-bottom:.2rem}
+  .psub{font-size:.78rem;color:var(--color-text-secondary);line-height:1.5;font-style:italic}
+  .ptog{font-size:18px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;margin-top:2px;line-height:1;font-weight:300}
+  .pcard.open .ptog{transform:rotate(45deg)}
+  .pbody{display:none;border-top:0.5px solid var(--color-border-tertiary)}
+  .pcard.open .pbody{display:block}
+  .pbody-inner{padding:1.1rem 1.25rem}
+  .tension{border-radius:8px;padding:.625rem .875rem;margin-bottom:.75rem;border-left:2px solid}
+  .tension-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;font-weight:500}
+  .tension p{font-size:.75rem;line-height:1.6;font-style:italic}
+  .aplicacion{border-radius:8px;padding:.75rem .875rem;margin-bottom:.625rem}
+  .aplic-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;font-weight:500}
+  .aplic-text{font-size:.78rem;line-height:1.65}
+  .preguntap{border-radius:8px;padding:.75rem .875rem}
+  .preg-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;font-weight:500}
+  .preg-text{font-family:var(--font-serif);font-size:.88rem;line-height:1.55;font-style:italic}
+  .tbar{border:0.5px solid var(--color-border-tertiary);border-radius:14px;overflow:hidden;margin-bottom:.875rem;background:var(--color-background-primary);cursor:pointer;transition:border-color .15s}
+  .tbar:hover,.tbar.open{border-color:var(--color-border-secondary)}
+  .thead{display:flex;align-items:flex-start;gap:12px;padding:1.25rem}
+  .tnum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px;font-family:var(--font-mono)}
+  .tmeta{flex:1;min-width:0}
+  .tlabel{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem;font-family:var(--font-mono)}
+  .ttitle{font-family:var(--font-serif);font-size:1.05rem;line-height:1.3;font-weight:400;margin-bottom:.5rem}
+  .tvs{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .tside{font-size:.72rem;padding:3px 10px;border-radius:100px;font-weight:500}
+  .ttog{font-size:18px;color:var(--color-text-tertiary);transition:transform .2s;flex-shrink:0;margin-top:2px;line-height:1;font-weight:300}
+  .tbar.open .ttog{transform:rotate(45deg)}
+  .tbody{display:none;border-top:0.5px solid var(--color-border-tertiary);padding:1.1rem 1.25rem}
+  .tbar.open .tbody{display:block}
+  .tbody p{font-size:.82rem;color:var(--color-text-secondary);line-height:1.75;margin-bottom:.75rem}
+  .tbody p:last-child{margin-bottom:0}
+  .fest-callout{border-radius:8px;padding:.625rem .875rem;margin:.75rem 0;border:0.5px dashed}
+  .fest-text{font-size:.78rem;font-style:italic;line-height:1.6}
+  .tlvl{border-radius:8px;padding:.625rem .875rem;margin-top:.75rem}
+  .tlvl-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem;font-weight:500}
+  .tlvl-text{font-size:.78rem;line-height:1.65}
+  .slabel{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:1rem;display:flex;align-items:center;gap:10px;font-family:var(--font-mono)}
+  .slabel::after{content:'';flex:1;height:0.5px;background:var(--color-border-tertiary)}
+  .prov{display:flex;gap:12px;padding:.875rem 0;border-bottom:0.5px solid var(--color-border-tertiary);align-items:flex-start}
+  .prov:last-child{border-bottom:none}
+  .pmark{font-size:14px;flex-shrink:0;margin-top:1px;color:#BA7517;line-height:1.5}
+  .prov-body{flex:1}
+  .pif{font-size:.78rem;color:var(--color-text-tertiary);margin-bottom:2px;font-style:italic}
+  .ptxt{font-size:.88rem;color:var(--color-text-primary);line-height:1.5}
+  .foot{border-top:0.5px solid var(--color-border-tertiary);padding:1.25rem 0 0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--color-text-tertiary);margin-top:1.5rem;letter-spacing:.05em}
+  .ac-a .onum,.ac-a .pnum,.ac-a .tnum{background:#FAEEDA;color:#633806}
+  .ac-a .otype,.ac-a .ptag,.ac-a .tlabel{color:#BA7517}
+  .ac-a .col-label,.ac-a .ocol-head{color:#BA7517}
+  .ac-a .col ul li::before,.ac-a .ocol ul li::before{color:#BA7517}
+  .ac-a .sowhat,.ac-a .tension{background:#FAEEDA;border-color:#EF9F27}
+  .ac-a .sw-label,.ac-a .tension-label{color:#633806}
+  .ac-a .sowhat p,.ac-a .tension p{color:#633806}
+  .ac-a .tension-note{background:#FAEEDA;border-color:#EF9F27}
+  .ac-a .tnote-label{color:#633806}.ac-a .tnote-text{color:#633806}
+  .ac-a .aplicacion{background:#FAEEDA}.ac-a .aplic-label{color:#633806}.ac-a .aplic-text{color:#633806}
+  .ac-a .tside{background:#FAEEDA;color:#633806}
+  .ac-a .tlvl{background:#FAEEDA}.ac-a .tlvl-label{color:#633806}.ac-a .tlvl-text{color:#633806}
+  .ac-g .onum,.ac-g .pnum,.ac-g .tnum{background:#E1F5EE;color:#085041}
+  .ac-g .otype,.ac-g .ptag,.ac-g .tlabel{color:#1D9E75}
+  .ac-g .col-label,.ac-g .ocol-head{color:#1D9E75}
+  .ac-g .col ul li::before,.ac-g .ocol ul li::before{color:#1D9E75}
+  .ac-g .sowhat,.ac-g .tension{background:#E1F5EE;border-color:#5DCAA5}
+  .ac-g .sw-label,.ac-g .tension-label{color:#085041}
+  .ac-g .sowhat p,.ac-g .tension p{color:#085041}
+  .ac-g .tension-note{background:#E1F5EE;border-color:#5DCAA5}
+  .ac-g .tnote-label{color:#085041}.ac-g .tnote-text{color:#085041}
+  .ac-g .aplicacion{background:#E1F5EE}.ac-g .aplic-label{color:#085041}.ac-g .aplic-text{color:#085041}
+  .ac-g .preguntap{background:#E1F5EE}.ac-g .preg-label{color:#085041}.ac-g .preg-text{color:#085041}
+  .ac-g .tside{background:#E1F5EE;color:#085041}
+  .ac-g .tlvl{background:#E1F5EE}.ac-g .tlvl-label{color:#085041}.ac-g .tlvl-text{color:#085041}
+  .ac-p .onum,.ac-p .pnum,.ac-p .tnum{background:#EEEDFE;color:#3C3489}
+  .ac-p .otype,.ac-p .ptag,.ac-p .tlabel{color:#534AB7}
+  .ac-p .col-label,.ac-p .ocol-head{color:#534AB7}
+  .ac-p .col ul li::before,.ac-p .ocol ul li::before{color:#534AB7}
+  .ac-p .sowhat,.ac-p .tension{background:#EEEDFE;border-color:#AFA9EC}
+  .ac-p .sw-label,.ac-p .tension-label{color:#3C3489}
+  .ac-p .sowhat p,.ac-p .tension p{color:#3C3489}
+  .ac-p .tension-note{background:#EEEDFE;border-color:#AFA9EC}
+  .ac-p .tnote-label{color:#3C3489}.ac-p .tnote-text{color:#3C3489}
+  .ac-p .aplicacion{background:#EEEDFE}.ac-p .aplic-label{color:#3C3489}.ac-p .aplic-text{color:#3C3489}
+  .ac-p .preguntap{background:#EEEDFE}.ac-p .preg-label{color:#3C3489}.ac-p .preg-text{color:#3C3489}
+  .ac-p .fest-callout{background:#EEEDFE;border-color:#AFA9EC}.ac-p .fest-text{color:#3C3489}
+  .ac-p .tside{background:#EEEDFE;color:#3C3489}
+  .ac-p .tlvl{background:#EEEDFE}.ac-p .tlvl-label{color:#3C3489}.ac-p .tlvl-text{color:#3C3489}
+  .ac-r .onum,.ac-r .pnum,.ac-r .tnum{background:#FAECE7;color:#712B13}
+  .ac-r .otype,.ac-r .ptag,.ac-r .tlabel{color:#C94B2C}
+  .ac-r .col-label,.ac-r .ocol-head{color:#C94B2C}
+  .ac-r .col ul li::before,.ac-r .ocol ul li::before{color:#C94B2C}
+  .ac-r .sowhat,.ac-r .tension{background:#FAECE7;border-color:#D85A30}
+  .ac-r .sw-label,.ac-r .tension-label{color:#712B13}
+  .ac-r .sowhat p,.ac-r .tension p{color:#712B13}
+  .ac-r .tension-note{background:#FAECE7;border-color:#D85A30}
+  .ac-r .tnote-label{color:#712B13}.ac-r .tnote-text{color:#712B13}
+  .ac-r .aplicacion{background:#FAECE7}.ac-r .aplic-label{color:#712B13}.ac-r .aplic-text{color:#712B13}
+  .ac-r .tside{background:#FAECE7;color:#712B13}
+  .ac-r .tlvl{background:#FAECE7}.ac-r .tlvl-label{color:#712B13}.ac-r .tlvl-text{color:#712B13}
+  .ic-a{background:#FAEEDA}.ic-g{background:#E1F5EE}.ic-r{background:#FAECE7}.ic-p{background:#EEEDFE}.ic-b{background:#E6F1FB}
+  @media(max-width:580px){.stats{grid-template-columns:repeat(3,1fr)}.two-col{grid-template-columns:1fr}.three-col{grid-template-columns:1fr}.nav{gap:4px}.plat{padding:1.25rem}}
+</style>
+</head>
+<body>
+<div class="plat">
+  <div class="hero">
+    <div class="hero-eyebrow">La Victoria Lab · SXSW 2026</div>
+    <h1>El "so what"<br>de <em>SXSW 26</em></h1>
+    <p class="hero-sub">20 sesiones destiladas en lo esencial: las ideas, los shifts, los principios de diseño y las oportunidades que LVL debería explorar hoy.</p>
+  </div>
+
+  <nav class="nav">
+    <button class="nbtn on" onclick="show('ov',this)">Panorama</button>
+    <button class="nbtn" onclick="show('ideas',this)">3 Ideas disruptivas</button>
+    <button class="nbtn" onclick="show('shifts',this)">5 Shifts</button>
+    <button class="nbtn" onclick="show('principios',this)">3 Principios</button>
+    <button class="nbtn" onclick="show('oportunidades',this)">3 Oportunidades</button>
+    <button class="nbtn" onclick="show('tensiones',this)">This or that</button>
+    <button class="nbtn" onclick="show('sintesis',this)">Ahora qué</button>
+  </nav>
+
+  <!-- PANORAMA -->
+  <div id="ov" class="sec on">
+    <div class="stag">Punto de partida</div>
+    <div class="stitle">Lo que SXSW 2026 dejó</div>
+    <p class="sdesc">SXSW 2026 fue una conferencia sobre lo que pasa cuando los sistemas se aceleran más rápido que los humanos. Y sobre cómo el diseño puede ser la respuesta.</p>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-lbl">sesiones analizadas</div></div>
+      <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">paradigm shifts</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">convergencias críticas</div></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">oportunidades clave</div></div>
+      <div class="stat"><div class="stat-num">1</div><div class="stat-lbl">pregunta norte</div></div>
+    </div>
+    <div class="bigquote">
+      <p>"First, make people lonely, then sell them connection. First, automate their jobs, then sell them purpose. First, optimize their bodies, then lease them the upgrade. [...] It ran out of things to sell you. So it sold you back to yourself."</p>
+      <div class="attr">Amy Webb · Future Today Institute · SXSW 2026</div>
+    </div>
+    <div class="pregunta-label">La pregunta que atraviesa cada sesión</div>
+    <div class="pregunta">¿Qué queda de lo humano cuando todo lo que antes nos diferenciaba puede ser automatizado?</div>
+    <p class="body-text">La respuesta es inesperada: lo que queda es exactamente lo que más importa — el cuerpo, la comunidad, el duelo, el juego, el vínculo, la rareza. Para La Victoria Lab, esto no es filosofía abstracta. Es el corazón de lo que hace que el bienestar de las familias latinoamericanas sea un problema de diseño y no solo de tecnología.</p>
+    <div class="northstar">
+      <div class="ns-label">Pregunta norte</div>
+      <div class="ns-q">¿Cómo aceleramos el bienestar de las familias sin acelerarlas?</div>
+      <p class="ns-body">La pregunta no es retórica — es un challenge de diseño real. ¿Cómo ayudas a las familias a ir más rápido en lo que importa — acceso a salud, educación, estabilidad financiera — sin agotarlas, desconectarlas de sus rituales, o reemplazar con tecnología lo que solo funciona si es humano? Es la pregunta que debería estar en el brief de cada proyecto de LVL.</p>
+      <button class="ver-mas" onclick="toggleMore(this)"><span>+</span> ver más</button>
+      <div class="expandable">
+        <p>La Victoria Lab vive exactamente en esa tensión. Su propósito es acelerar el bienestar familiar — pero si lo hace con las mismas herramientas que el mundo usa para acelerar todo lo demás, corre el riesgo de reproducir el problema en vez de resolverlo. De crear más carga, más ruido, más demanda sobre familias que ya están sobrecargadas.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="tags">
+      <span class="tag">Neuroaesthetics</span><span class="tag">Amy Webb Tech Trends</span><span class="tag">Technologies of Care</span><span class="tag">Craft Still Wins (Apple)</span><span class="tag">Death as Wellness</span><span class="tag">Gen Z &amp; Alpha</span><span class="tag">Nature Speaks</span><span class="tag">Brené Brown + Adam Grant</span><span class="tag">F*ck Productivity (Adobe)</span><span class="tag">Weird FTW</span><span class="tag">Story of Stories</span><span class="tag">Restorative by Design</span><span class="tag">Human-Centered Storytelling</span><span class="tag">Inspired by Research</span><span class="tag">Sympathetic Magic (Tom Sachs)</span><span class="tag">Unlocking Community</span><span class="tag">Communicating with Whales</span><span class="tag">Don't Be Cringe</span><span class="tag">Disney x Gen Z</span><span class="tag">Breaking Barriers: Space</span><span class="tag">Why Kids Play</span>
+    </div>
+  </div>
+
+  <!-- 3 IDEAS -->
+  <div id="ideas" class="sec">
+    <div class="ocard ac-a" onclick="tog(this)">
+      <div class="ohead"><div class="onum">01</div><div class="ometa"><div class="otype">Cuerpo · Emoción · Diseño sensorial</div><div class="otitle">El bienestar empieza en el cuerpo, no en la app</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <p class="btext">El bienestar no es una decisión cognitiva que se toma mirando un dashboard. Es una experiencia que ocurre en el cuerpo — en cómo respiras, en cómo te mueves, en el ambiente que te rodea, en el ritmo de tu día. SXSW fue contundente: hemos sobre-intelectualizado el bienestar. Las familias peruanas no necesitan más información sobre salud; necesitan diseño que les ayude a sentirse bien en su propio cuerpo.</p>
+        <p class="btext">Neuroaesthetics (Johns Hopkins) demostró con data que el color de una pared, el sonido de un espacio y la temperatura de una sala afectan directamente el sistema nervioso — no como metáfora, literalmente. Y Technologies of Care llegó a algo más simple todavía: el juego y el ritual — cosas que las familias peruanas ya tienen — son intervenciones de salud reales. No necesitas una app. Ya lo tienen.</p>
+        <div class="pills"><span class="pill">Neuroaesthetics</span><span class="pill">Technologies of Care</span><span class="pill">Restorative by Design</span><span class="pill">How Death Became Wellness</span><span class="pill">F*ck Productivity (Adobe)</span></div>
+        <div class="two-col">
+          <div class="col"><div class="col-label">Señales de SXSW</div><ul><li>El acto literal de jugar es sanador — neurológicamente productivo</li><li>Los espacios restaurativos reducen cortisol y restauran la capacidad de atención</li><li>Adobe: la creatividad muere por sobrecarga, no por pereza</li></ul></div>
+          <div class="col"><div class="col-label">So what para LVL</div><div class="sowhat"><div class="sw-label">Palanca de diseño</div><p>La implicancia para LVL es incómoda: muchos proyectos de bienestar digital están diseñados para la cabeza de la persona, no para su cuerpo. Le hablan a su razonamiento, le dan información, le piden que tome decisiones. Pero si la persona está agotada, ansiosa o sobrecargada — que es el estado de la mayoría de las familias peruanas — esa información no llega. El sistema nervioso ya cerró la puerta. ¿Cómo diseñamos la espera en Inkafarma pensando en el sistema nervioso de la familia? El diseño de bienestar no es decoración: es arquitectura de la experiencia corporal.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="ocard ac-g" onclick="tog(this)">
+      <div class="ohead"><div class="onum">02</div><div class="ometa"><div class="otype">Comunidad · Pertenencia · Era post-social</div><div class="otitle">La comunidad ya no es un canal. Es el producto.</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <p class="btext">El modelo de llegar a audiencias masivas está roto. La gente se está replegando a grupos privados donde las marcas no pueden comprar su presencia. La única forma de entrar es siendo invitado.</p>
+        <p class="btext">Graza, un aceite de oliva que lanzó con apenas unos cientos de botellas como presupuesto de marketing, no pagó ads — eligió una sola comunidad de creadores de comida y se volvió inescapable dentro de ella antes de expandirse. Liquid Death vende agua en lata, pero construyó algo que la gente quiere mostrar y mandar a sus amigos: "it's not weird, it's just human." Coconut Cult ni siquiera tiene una estrategia clara — solo autenticidad radical y misterio deliberado. Los tres comparten lo mismo: no empujaron a la gente a comprar. La hicieron sentir algo.</p>
+        <div class="pills"><span class="pill">Unlocking Community</span><span class="pill">Human-Centered Storytelling</span><span class="pill">Don't Be Cringe</span><span class="pill">Disney x Gen Z</span><span class="pill">Weird FTW</span></div>
+        <div class="two-col">
+          <div class="col"><div class="col-label">Señales de SXSW</div><ul><li>Gen Z es fluida — pueden ser actores y gamers y financieros a la vez</li><li>Credibilidad > dinero: creadores e influencers solo trabajan con marcas que usan</li><li>Participatory brands — el fan co-crea el producto, el evento, la historia</li></ul></div>
+          <div class="col"><div class="col-label">So what para LVL</div><div class="sowhat"><div class="sw-label">Palanca de diseño</div><p>Las familias peruanas ya tienen sus rituales: la reunión dominical, el WhatsApp familiar, las fiestas de promoción. Esos momentos tienen una carga emocional muy alta — son donde se celebra, se procesa, se pertenece. LVL no puede ni debe entrar a esos espacios como si fuera parte de la familia. Pero sí puede diseñar cosas que las familias quieran llevar consigo — productos, historias, herramientas que encajen en esa emoción sin interrumpirla.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="ocard ac-p" onclick="tog(this)">
+      <div class="ohead"><div class="onum">03</div><div class="ometa"><div class="otype">IA · Escucha · Percepción ampliada</div><div class="otitle">La IA más poderosa no reemplaza: amplía lo que somos capaces de percibir</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <div class="quote-big">"We don't change when we speak. We change when we listen."</div>
+        <div class="quote-attr">Aza Raskin · Earth Species Project · SXSW 2026</div>
+        <div class="graph-wrap">
+          <div class="graph-label">El humble graph — lo que los humanos podemos percibir</div>
+          <svg width="100%" viewBox="0 0 600 95" xmlns="http://www.w3.org/2000/svg">
+            <defs><marker id="arrp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#B4B2A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+            <line x1="30" y1="48" x2="570" y2="48" stroke="#B4B2A9" stroke-width="0.5" marker-end="url(#arrp)"/>
+            <rect x="30" y="28" width="540" height="40" rx="3" fill="#EEEDFE" opacity="0.3"/>
+            <text x="300" y="45" text-anchor="middle" font-size="10" fill="#888780" font-family="'DM Mono',monospace">todo lo que existe — frecuencias, señales, comunicación, significado</text>
+            <rect x="278" y="23" width="12" height="50" rx="2" fill="#534AB7"/>
+            <line x1="284" y1="12" x2="284" y2="21" stroke="#534AB7" stroke-width="1"/>
+            <text x="284" y="8" text-anchor="middle" font-size="10" fill="#534AB7" font-family="'DM Mono',monospace">experiencia humana</text>
+            <text x="30" y="88" font-size="9.5" fill="#888780" font-family="'DM Mono',monospace">infrasonido · ultrasonido · campos eléctricos · señales químicas · comunicación animal...</text>
+          </svg>
+        </div>
+        <p class="btext">Aza Raskin mostró en SXSW este gráfico: el rango de experiencia humana es una línea delgadísima comparada con todo lo que existe en el universo. La mayoría del mundo ocurre en frecuencias y señales que simplemente no podemos percibir. Lo que están haciendo en el Earth Species Project es aplicar procesamiento de lenguaje natural al lenguaje de otras especies: el 60-70% de la comunicación de los cuervos ocurría en susurros durante el vuelo que nadie había catalogado. Con los delfines, la mitad de su comunicación sigue siendo "non-signature whistles" — la ciencia diciendo, literalmente, "no tenemos idea de qué están diciendo."</p>
+        <p class="btext">El punto no es hablarle a los animales. Es entender que el mundo está lleno de comunicación e inteligencia que nuestra percepción filtra. Y la IA puede ampliar esa apertura.</p>
+        <p class="btext">La misma lógica aplica al diseño. Cuando diseñamos para familias con encuestas y entrevistas estructuradas, capturamos lo que las personas pueden articular y lo que están dispuestas a decir. Pero hay una enorme cantidad de comunicación invisible: la tensión en la voz de una mamá cuando habla del colegio de sus hijos, el silencio de un papá cuando le preguntan por sus sueños, los rituales de cuidado que nadie nombra como "bienestar" porque simplemente son la vida cotidiana. Eso es el "non-signature whistle" de las familias peruanas: la mayor parte de lo que importa, sin nombre aún.</p>
+        <div class="pills"><span class="pill">Nature Speaks (Keynote)</span><span class="pill">Communicating with Whales</span><span class="pill">Amy Webb Tech Trends</span><span class="pill">Breaking Barriers: Space</span></div>
+        <div class="two-col">
+          <div class="col"><div class="col-label">Señales de SXSW</div><ul><li>Los cuervos tienen vocabularios que los biólogos no sabían que existían — la IA los descubrió escuchando</li><li>Las flores responden al sonido de los polinizadores produciendo néctar más dulce en tres segundos</li><li>La IA puede ir directo de audio a comportamiento — sin necesitar que alguien lo explique</li></ul></div>
+          <div class="col"><div class="col-label">So what para LVL</div><div class="sowhat"><div class="sw-label">Palanca de diseño</div><p>¿Qué instrumentos de escucha tiene LVL hoy, y qué está filtrando sin darse cuenta? ¿Estamos midiendo lo que las familias dicen, o lo que las familias viven? La IA no reemplaza al diseñador ni al investigador. Amplía lo que son capaces de percibir — y eso cambia qué problemas se ven, qué se diseña, y para quién.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- SHIFTS -->
+  <div id="shifts" class="sec">
+    <div class="scard"><div class="sicon ic-a">🧠</div><div class="scontent"><div class="sfrom">Diseñar para el comportamiento racional</div><div class="sarr">→</div><div class="sto">Diseñar para el sistema nervioso</div><div class="sdesc2">El bienestar no es una decisión cognitiva. Es una experiencia corporal. Neuroestética, espacio sensorial, ritmo y ritual son las nuevas herramientas del diseño.</div><div class="lvl-bar"><div class="lvl-label">Para LVL</div><div class="lvl-text">Si el bienestar ocurre en el cuerpo, el brief cambia: ya no es "¿cómo comunicamos mejor?" sino "¿cómo hacemos que este espacio, este producto, este momento se sienta bien en el cuerpo de la familia que lo vive?" Eso transforma cómo se diseñan los puntos de contacto del ecosistema Intercorp — desde la espera en Inkafarma hasta la experiencia en un Real Plaza.</div></div></div></div>
+    <div class="scard"><div class="sicon ic-g">👥</div><div class="scontent"><div class="sfrom">Construir audiencias</div><div class="sarr">→</div><div class="sto">Entrar a sub-comunidades que ya existen</div><div class="sdesc2">El modelo de llegar a todos ya no funciona — la solución es importarle profundamente a sub-comunidades específicas. Graza empezó por barbecue, creó densidad ahí, luego bakers, luego recipe developers. La técnica tiene nombre — <em>stacking niches</em> — y el resultado es que el producto dejó de sentirse como marketing y empezó a sentirse como cultura.</div><div class="lvl-bar"><div class="lvl-label">Para LVL</div><div class="lvl-text">Las familias peruanas no son una audiencia homogénea — son una superposición de sub-comunidades con identidades muy específicas: mamás de colegio particular, emprendedores de primera generación, cuidadores de adultos mayores, jóvenes que sostienen a su familia. Diseñar para todas a la vez es diseñar para ninguna. ¿En cuál sub-comunidad puede LVL volverse inescapable primero?</div></div></div></div>
+    <div class="scard"><div class="sicon ic-r">🤝</div><div class="scontent"><div class="sfrom">Evitar lo difícil</div><div class="sarr">→</div><div class="sto">El cuidado genuino es acompañar en lo incómodo</div><div class="sdesc2">El cuidado genuino incluye los momentos más humanos y menos optimizables — una enfermedad, una separación, la pérdida de un trabajo, el duelo, una deuda que no cierra. <em>"Planning is love — before the crisis happens."</em> — How Death Became the New Wellness Frontier.</div><div class="lvl-bar"><div class="lvl-label">Para LVL</div><div class="lvl-text">Las familias peruanas necesitan acompañamiento especialmente en los momentos de quiebre. ¿Qué puede diseñar LVL para estar presente — con dignidad, sin transaccionalidad — en esos momentos que el mercado prefiere ignorar?</div></div></div></div>
+    <div class="scard"><div class="sicon ic-p">✦</div><div class="scontent"><div class="sfrom">IA como herramienta de eficiencia y escala</div><div class="sarr">→</div><div class="sto">IA como amplificador de humanidad y craft</div><div class="sdesc2">La IA no reemplaza el craft humano — lo que destruye es la IA sin gusto, sin juicio, sin propósito. <em>"It's not just because you can, that you should."</em> — Google, SXSW 2026.</div><div class="lvl-bar"><div class="lvl-label">Para LVL</div><div class="lvl-text">La tentación será usar IA para producir más y más rápido. El riesgo es perder exactamente lo que hace valioso el diseño de LVL: el juicio, el gusto, la comprensión profunda de las familias peruanas. La IA es una palanca — pero solo si hay un criterio humano claro que la dirija.</div></div></div></div>
+    <div class="scard"><div class="sicon ic-b">◈</div><div class="scontent"><div class="sfrom">El trabajo humano como motor del crecimiento</div><div class="sarr">→</div><div class="sto">Lo que no puede automatizarse se vuelve lo más valioso</div><div class="sdesc2"><em>"Labor stops being the engine for growth."</em> — Amy Webb. Cuando los agentes pueden crear sin fatiga, lo que queda con valor real es exactamente lo que los robots no pueden hacer: el cuidado, la presencia, la empatía, el vínculo.</div><div class="lvl-bar"><div class="lvl-label">Para LVL</div><div class="lvl-text">El bienestar de las familias latinoamericanas depende de dimensiones que ningún sistema puede automatizar — la confianza, el ritual, la comunidad, el acompañamiento humano. Eso no es una limitación del diseño de LVL. Es su ventaja más duradera.</div></div></div></div>
+    <div class="subsection">
+      <div class="sub-label">Shifts en IA · Google en la práctica</div>
+      <p class="sub-desc">Cuatro movimientos concretos que Google presentó en SXSW y que cambian lo que significa diseñar con IA. No son conceptos — son sistemas en producción.</p>
+      <div class="gcard" onclick="gtog(this)"><div class="gcard-head"><div class="gshift-wrap"><div class="gshift-from">Genérico</div><div class="garr">→</div><div class="gshift-to">Contextual</div></div><div class="gtog">+</div></div><div class="gcard-body"><p class="gdesc">En su partnership con Uber, el sistema detectaba a dónde viajaba cada usuario y adaptaba la publicidad en tiempo real. Si un estudiante de la Universidad de Miami viajaba al gimnasio, el ad usaba la mascota de su universidad y un mensaje vinculado al deporte. El mismo sistema, miles de mensajes distintos.</p><div class="glvl"><div class="glvl-label">Para LVL</div><div class="glvl-text">Una Familia Joven que lleva a su hijo enfermo a Inkafarma a las 11pm no necesita el mismo diseño que una Pareja Sin Hijos que entra a PlazaVea un sábado por la mañana. Diseñar contextualmente significa que el espacio, el mensaje y la experiencia se adaptan al momento específico — no al "cliente de Inkafarma" como categoría abstracta.</div></div></div></div>
+      <div class="gcard" onclick="gtog(this)"><div class="gcard-head"><div class="gshift-wrap"><div class="gshift-from">Masivo</div><div class="garr">→</div><div class="gshift-to">Personal</div></div><div class="gtog">+</div></div><div class="gcard-body"><p class="gdesc">Con Gemini, Veo y social listening, Google respondía comentarios individuales en sus redes sociales con videos y gifs generados específicamente para cada usuario — incluyendo bromas que referenciaban el comentario exacto de esa persona.</p><div class="glvl"><div class="glvl-label">Para LVL</div><div class="glvl-text">El research de Familias Peruanas genera insights sobre etapas de vida, tensiones y rituales. Hoy esa inteligencia vive en reportes. ¿Cómo hace LVL para que ese conocimiento llegue al momento de diseño de cada proyecto, de forma que cada entrega hable al Nido Vacío específico o al Joven Independiente específico, y no a "las familias peruanas" en general?</div></div></div></div>
+      <div class="gcard" onclick="gtog(this)"><div class="gcard-head"><div class="gshift-wrap"><div class="gshift-from">Reactivo</div><div class="garr">→</div><div class="gshift-to">Predictivo</div></div><div class="gtog">+</div></div><div class="gcard-body"><p class="gdesc">Con Google Cloud y la MLB, construyeron un sistema que predecía qué asiento del estadio tenía más probabilidad de atrapar un home run — cruzando data de jugadores, clima, dimensiones y estadísticas históricas. El mensaje aparecía en el Jumbotron dirigido a esa persona, antes de que ocurriera.</p><div class="glvl"><div class="glvl-label">Para LVL</div><div class="glvl-text">Las familias peruanas tienen momentos predecibles de alta tensión: inicio del año escolar, quincena, enfermedad de un familiar, Navidad, cambio de trabajo. LVL puede diseñar para anticipar esos momentos en vez de responder cuando ya ocurrieron.</div></div></div></div>
+      <div class="gcard" onclick="gtog(this)"><div class="gcard-head"><div class="gshift-wrap"><div class="gshift-from">Fijo</div><div class="garr">→</div><div class="gshift-to">Adaptivo</div></div><div class="gtog">+</div></div><div class="gcard-body"><p class="gdesc">En una convención con gamers, desarrollaron una instalación que generaba videojuegos completamente únicos para cada jugador que se paraba frente a la consola. Ninguna experiencia se repetía.</p><div class="glvl"><div class="glvl-label">Para LVL</div><div class="glvl-text">Hoy los proyectos de LVL producen una solución. Un sistema adaptivo produce un marco que evoluciona con la familia. Una herramienta diseñada para una Familia Joven debería poder crecer con esa familia cuando pase a ser Familia con Experiencia — sin rediseñar desde cero.</div></div></div></div>
+      <div class="so-what-google"><div class="sowg-label">Para LVL</div><div class="sowg-text">Lo que Google demuestra es una postura de diseño: el sistema aprende del contexto real de la persona y responde a él — no a su perfil, no a su segmento, sino a su momento específico. El proyecto Familias Peruanas ya mapeó que una Familia Joven vive una realidad completamente distinta a la de una Familia con Experiencia, a la de un Nido Vacío, o a la de un Joven Independiente. ¿Cuánto de lo que diseñamos hoy responde a esa especificidad, o seguimos diseñando para "la familia peruana promedio" que en la práctica no existe?</div></div>
+    </div>
+  </div>
+
+  <!-- PRINCIPIOS -->
+  <div id="principios" class="sec">
+    <div class="pcard ac-r" onclick="togp(this)">
+      <div class="phead"><div class="pnum">01</div><div class="pmeta" style="flex:1"><div class="ptag">Emoción · Storytelling · Craft</div><div class="ptitle">Empieza por la emoción que quieres generar — todo lo demás es consecuencia</div><div class="psub">Si no puedes nombrar qué quieres que la persona sienta, no estás listo para diseñar.</div></div><div class="ptog">+</div></div>
+      <div class="pbody"><div class="pbody-inner">
+        <div class="tension" style="border-color:#C94B2C"><div class="tension-label">La tensión que implica</div><p>La emoción no es el resultado del diseño. Es el punto de partida.</p></div>
+        <p class="btext">Apple pasó semanas construyendo marionetas a mano, cada personalidad imperfecta y única, porque sabían que la emoción no se fabrica: se construye con decisiones de craft. O'Boticário en Brasil hizo una campaña de Día de la Madre sobre el momento más duro de la maternidad — cuando los hijos adolescentes rechazan a sus madres. Las madres brasileñas la compartieron masivamente por WhatsApp diciéndose "sí soy." No fue viral porque era bonita. Fue viral porque quitó vergüenza a algo que todas sentían pero nadie nombraba. Crocs recuperó su negocio no cambiando el zapato sino reencuadrando la emoción que generaba: de "mala moda" a "acto de rebelión." Tres ejemplos, una misma lección: la emoción no es el resultado del diseño. Es el punto de partida.</p>
+        <div class="pills"><span class="pill">Craft Still Wins (Apple)</span><span class="pill">Human-Centered Storytelling</span><span class="pill">Disney x Gen Z</span><span class="pill">Story of Stories</span></div>
+        <div class="aplicacion"><div class="aplic-label">Aplicación en LVL</div><div class="aplic-text">Antes de definir el formato, el canal o la solución, el equipo debería poder responder: ¿qué quiere sentir esta familia? ¿Qué vergüenza, miedo o tensión lleva cargando que nadie le está nombrando todavía? Si la respuesta es vaga, el diseño también lo será.</div></div>
+      </div></div>
+    </div>
+    <div class="pcard ac-a" onclick="togp(this)">
+      <div class="phead"><div class="pnum">02</div><div class="pmeta" style="flex:1"><div class="ptag">Research · Instinto · Incertidumbre</div><div class="ptitle">Usa la investigación para descubrir lo que no sabes, no para confirmar lo que ya crees. El instinto diseña; la data afina.</div><div class="psub">La data no decide — incomoda, expande, cuestiona. Quien decide es el diseñador.</div></div><div class="ptog">+</div></div>
+      <div class="pbody"><div class="pbody-inner">
+        <div class="tension" style="border-color:#BA7517"><div class="tension-label">La tensión que implica</div><p>Diseñar con la incertidumbre — no contra ella — significa aceptar que el brief nunca está completo y que lo más valioso que puede revelar el research es algo que incomoda.</p></div>
+        <p class="btext">La trampa más común del research no es usar poca data — es usarla para el propósito equivocado. Cuando Heineken empezó a diseñar ads para "pasar el test", los scores subían y el trabajo se vaciaba. Cuando dejaron de usar la investigación para mitigar riesgo y empezaron a usarla para explorar incertidumbre, el trabajo mejoró y los scores también. La investigación viene en dos momentos: al principio, para expandir la mirada y descubrir lo inesperado; al final, para validar y ajustar. Lo que destruye el trabajo creativo es usarla en el medio, cuando la idea ya está tomando forma y la data se convierte en juez antes de tiempo.</p>
+        <div class="pills"><span class="pill">Inspired by Research (Heineken)</span><span class="pill">Innovation Under Pressure</span><span class="pill">Don't Be Cringe</span></div>
+        <div class="aplicacion"><div class="aplic-label">Aplicación en LVL</div><div class="aplic-text">La investigación de familias peruanas es una de las herramientas más poderosas que tenemos. El riesgo es usarla para sentirnos seguros en vez de para volvernos más curiosos. La pregunta que debería guiar cada proyecto no es "¿qué dice la data?" sino "¿qué nos está incomodando de lo que encontramos, y qué haríamos si le hiciéramos caso?"</div></div>
+      </div></div>
+    </div>
+    <div class="pcard ac-g" onclick="togp(this)">
+      <div class="phead"><div class="pnum">03</div><div class="pmeta" style="flex:1"><div class="ptag">Cuerpo · Juego · Proceso</div><div class="ptitle">Diseña para el cuerpo y el juego — las dos formas de conocimiento que los adultos abandonamos, y que las familias nunca dejan de necesitar.</div><div class="psub">Si tu solución solo habla a la mente racional, está incompleta.</div></div><div class="ptog">+</div></div>
+      <div class="pbody"><div class="pbody-inner">
+        <div class="tension" style="border-color:#1D9E75"><div class="tension-label">La tensión que implica</div><p>El diseño que controla demasiado no deja espacio para que emerja nada. Las familias no necesitan que les enseñemos a jugar — necesitan diseño que no les quite el espacio para hacerlo.</p></div>
+        <p class="btext">Los niños son genios creativos. Los adultos somos entrenados para dejar de serlo. Hoy estamos sobre-estimulados, nunca aburridos. Y el aburrimiento es donde nace la imaginación: generar ideas que hoy no existen. Lo que un niño necesita para jugar bien es exactamente lo que un diseñador necesita para crear bien: tiempo no estructurado, espacio para explorar, herramientas que nutran la imaginación, y confianza de que alguien los respalda si fallan.</p>
+        <p class="btext">Las familias peruanas no necesitan que les enseñemos esto. Su vida cotidiana ya está llena de conocimiento corporal y juego: cocinar juntos, el ritual del baño, la reunión dominical, bailar en la cocina. En esos momentos se procesa, se aprende, se vincula. El diseño que solo habla a la mente racional está diseñando para una familia que no existe.</p>
+        <div class="pills"><span class="pill">Why the Future Depends on How Kids Play</span><span class="pill">Technologies of Care</span><span class="pill">Restorative by Design</span><span class="pill">F*ck Productivity (Adobe)</span></div>
+        <div class="aplicacion"><div class="aplic-label">Aplicación en LVL</div><div class="aplic-text">Si LVL diseña para el juego y el cuerpo pero sin juego ni cuerpo en su propio proceso, hay una contradicción que se nota en el resultado. Y en campo: no inventes un ritual de juego — encuentra el que ya ocurre y diseña desde ahí.</div></div>
+        <div class="preguntap"><div class="preg-label">La gran pregunta</div><div class="preg-text">Intercorp tiene puntos de contacto con las familias peruanas en casi todos los momentos de su vida — cuando compran, cuando se enferman, cuando estudian, cuando se entretienen, cuando ahorran. Todos esos momentos ocurren en un cuerpo. ¿Qué cambiaría en los proyectos de LVL si empezáramos a preguntar no solo "¿qué le pasa a esta familia?" sino "¿dónde lo siente?"</div></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- OPORTUNIDADES -->
+  <div id="oportunidades" class="sec">
+    <div class="ocard ac-a" onclick="tog(this)">
+      <div class="ohead"><div class="onum">01</div><div class="ometa"><div class="otype">La ventaja del ecosistema</div><div class="otitle">Intercorp ya sabe más de las familias peruanas que las familias mismas — pero esa inteligencia todavía no les pertenece a ellas</div><div class="ohook">El giro más poderoso no es explotar la data. Es devolvérsela.</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <p class="btext">Amy Webb describió el modelo más perturbador: las plataformas acumulan data emocional de las personas y la usan para venderles la solución al problema que ellas mismas crearon. Google propone el contramovimiento: "from generic to contextual." Las familias peruanas gestionan su vida fragmentada entre sistemas que no se hablan: pagan en Sip, se atienden en Inkafarma, educan en Innova, compran en PlazaVea. Intercorp tiene señales de ese ciclo de vida completo, pero las procesa en silos verticales. Nadie le devuelve esa inteligencia a la familia de forma que le sirva.</p>
+        <div class="three-col">
+          <div class="col"><div class="ocol-head" style="color:#BA7517">Señal de SXSW</div><ul><li>Amy Webb · Google AI &amp; Brands · Nature Speaks</li><li>"From generic to contextual"</li><li>La data existe — el problema es estructural</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#BA7517">La oportunidad</div><ul><li>No un programa de loyalty — un espejo inteligente de su propia vida</li><li>Ningún actor externo tiene este nivel de ciclo de vida familiar</li><li>La confianza de las familias es el activo más frágil</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#BA7517">Tensión honesta</div><div class="tension-note ac-a"><div class="tnote-label">Riesgo</div><p class="tnote-text">Requiere que las plataformas del Grupo acuerden compartir data. Y exige un contrato de confianza con las familias que no puede romperse.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="ocard ac-r" onclick="tog(this)">
+      <div class="ohead"><div class="onum">02</div><div class="ometa"><div class="otype">El espacio que nadie ocupa</div><div class="otitle">Acompañar cuando más duele: el cuidado emocional de las familias peruanas no tiene dueño</div><div class="ohook">Inkafarma ve el final del proceso. Nadie ve el proceso completo.</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <p class="btext">Tres convergencias apuntan al mismo lugar: la soledad se convierte en mercado, el duelo y las transiciones difíciles son la nueva frontera del wellness, y el trabajo invisible de cuidado nunca ha sido reconocido. "Planning is love — before the crisis happens." Las familias peruanas tienen redes de cuidado informales muy sofisticadas. Cuando llega una crisis — enfermedad, muerte, separación, pérdida de empleo — navegan solas un sistema que no fue diseñado para acompañarlas.</p>
+        <div class="three-col">
+          <div class="col"><div class="ocol-head" style="color:#C94B2C">Señal de SXSW</div><ul><li>Amy Webb · Death as Wellness · Brené + Adam Grant</li><li>"Planning is love — before the crisis happens"</li><li>El cuidado emocional es un mercado sin diseño</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#C94B2C">La oportunidad</div><ul><li>Interseguro + Inkafarma/Aviva + Interbank: primer punto de acompañamiento integral</li><li>No "vender más" — "estar cuando más duele"</li><li>La lealtad más profunda nace de los peores momentos</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#C94B2C">Tensión honesta</div><div class="tension-note ac-r"><div class="tnote-label">Riesgo</div><p class="tnote-text">El riesgo es entrar de forma transaccional y convertirlo en venta cruzada. Solo funciona si el diseño prioriza genuinamente el bienestar sobre la conversión.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="ocard ac-g" onclick="tog(this)">
+      <div class="ohead"><div class="onum">03</div><div class="ometa"><div class="otype">De metros cuadrados a metros de bienestar</div><div class="otitle">Los espacios físicos de Intercorp son la intervención de bienestar más subutilizada del Perú</div><div class="ohook">Decenas de puntos de contacto semanales con familias. Ninguno diseñado para el sistema nervioso.</div></div><div class="otog">+</div></div>
+      <div class="obody"><div class="obody-inner">
+        <p class="btext">Neuroaesthetics en Johns Hopkins fue explícito: ya tenemos data científica de cómo el ambiente afecta directamente el sistema nervioso. Las familias peruanas tienen decenas de puntos de contacto semanales con el ecosistema Intercorp. Esos espacios hoy están diseñados para maximizar ventas por metro cuadrado. El sistema nervioso de la familia que los habita no está en el brief. Esperar en Inkafarma puede ser el momento más ansioso de la semana de una familia. La nota del cuaderno lo captura mejor que cualquier paper: "Roman baths — bigger than the temple."</p>
+        <div class="three-col">
+          <div class="col"><div class="ocol-head" style="color:#1D9E75">Señal de SXSW</div><ul><li>Neuroaesthetics · Restorative by Design · Technologies of Care</li><li>"Intentional spaces — the power of place"</li><li>Los espacios restaurativos reducen cortisol y restauran atención</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#1D9E75">La oportunidad</div><ul><li>La red física ya existe — no hay que construir nada nuevo</li><li>Cada Real Plaza, Inkafarma y Cineplanet: potencial intervención de salud pública</li><li>Ningún startup de wellness puede replicar esta escala</li></ul></div>
+          <div class="col"><div class="ocol-head" style="color:#1D9E75">Tensión honesta</div><div class="tension-note ac-g"><div class="tnote-label">Riesgo</div><p class="tnote-text">Requiere que las unidades de negocio acepten que "bienestar del visitante" es un KPI tan legítimo como "conversión por visita". Eso es un cambio cultural antes que un cambio de diseño.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- TENSIONES -->
+  <div id="tensiones" class="sec">
+    <div class="tbar ac-r" onclick="togt(this)">
+      <div class="thead"><div class="tnum">01</div><div class="tmeta"><div class="tlabel">Tensión 01</div><div class="ttitle">Más velocidad, más escala, más IA vs. más presencia, más conexión, más cuerpo</div><div class="tvs"><span class="tside">El mundo empuja a acelerar</span><span style="font-size:11px;color:#888">↔</span><span class="tside">Las personas piden presencia</span></div></div><div class="ttog">+</div></div>
+      <div class="tbody">
+        <p>El mundo empuja hacia sistemas que producen más, más rápido, sin intervención humana. Amy Webb lo describió sin eufemismos: robots en fábricas, agentes que crean sin fatiga, plataformas emocionales que reemplazan vínculos humanos. Y al mismo tiempo, todas las sesiones de SXSW apuntaban en la dirección opuesta: las personas quieren más presencia, más ritual, más lentitud, más cuerpo.</p>
+        <p>La tensión no es entre tecnología y humanidad. Es entre dos modelos de crecimiento: el que acelera todo y el que profundiza lo que ya existe. Para Intercorp, que tiene la red de contacto cotidiano más grande del Perú con las familias, la pregunta es qué tipo de crecimiento quiere construir.</p>
+        <div class="tlvl"><div class="tlvl-label">Para LVL</div><div class="tlvl-text">El trabajo de LVL es demostrar, proyecto a proyecto, que es posible ayudar a las familias a ir más rápido en lo que importa sin agotarlas en lo que no importa.</div></div>
+      </div>
+    </div>
+    <div class="tbar ac-a" onclick="togt(this)">
+      <div class="thead"><div class="tnum">02</div><div class="tmeta"><div class="tlabel">Tensión 02</div><div class="ttitle">Diseñar para la transacción vs. diseñar para la conexión</div><div class="tvs"><span class="tside">¿Cómo hacemos que la familia compre?</span><span style="font-size:11px;color:#888">↔</span><span class="tside">¿Cómo hacemos que sienta que estamos de su lado?</span></div></div><div class="ttog">+</div></div>
+      <div class="tbody">
+        <p>Liquid Death vende agua en lata. Crocs vende un zapato de foam. O'Boticário vende perfume. Ninguno compite en el producto — compiten en lo que el producto hace sentir. Y los tres crecieron exponencialmente no optimizando la transacción sino construyendo algo que la gente quisiera sentir, compartir y defender.</p>
+        <p>Intercorp tiene plataformas transaccionales muy poderosas — y eso es una ventaja. Pero la transacción sola no genera lealtad profunda ni diferenciación duradera. La tensión real es si el ecosistema puede moverse desde "¿cómo hacemos que la familia compre?" hacia "¿cómo hacemos que la familia sienta que Intercorp está de su lado?"</p>
+        <div class="tlvl"><div class="tlvl-label">Para LVL</div><div class="tlvl-text">El lab existe exactamente en esta tensión. Su trabajo no es reemplazar la lógica transaccional — es demostrar que hay valor en lo que está más allá de ella.</div></div>
+      </div>
+    </div>
+    <div class="tbar ac-p" onclick="togt(this)">
+      <div class="thead"><div class="tnum">03</div><div class="tmeta"><div class="tlabel">Tensión 03</div><div class="ttitle">Principios universales de diseño vs. saberes culturales latinoamericanos irreplicables</div><div class="tvs"><span class="tside">Lo que aplica en cualquier lugar</span><span style="font-size:11px;color:#888">↔</span><span class="tside">Lo que solo existe aquí</span></div></div><div class="ttog">+</div></div>
+      <div class="tbody">
+        <p>El diseño tiene principios universales — la emoción mueve, el cuerpo importa, la comunidad sostiene. Pero cómo se expresan esos principios es profundamente cultural. La forma en que una familia peruana celebra, cuida, duele y se organiza no es una variación de un modelo global. Es un sistema propio, con siglos de inteligencia acumulada, que ningún jugador externo puede replicar desde afuera.</p>
+        <div class="fest-callout"><div class="fest-text">No se pierdan más sobre elevar lo latino en el FEST_26.</div></div>
+        <div class="tlvl"><div class="tlvl-label">Para LVL</div><div class="tlvl-text">No importamos soluciones — diseñamos desde adentro. La ventaja competitiva más duradera de LVL no es su metodología. Es su comprensión profunda de lo que significa ser una familia latinoamericana hoy.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SÍNTESIS -->
+  <div id="sintesis" class="sec">
+    <div class="stag">Síntesis estratégica</div>
+    <div class="stitle">Ahora qué</div>
+    <p class="sdesc">SXSW 2026 no fue una conferencia sobre tecnología. Fue una conferencia sobre lo que se pierde cuando la tecnología avanza más rápido que las personas. Y sobre quién tiene la responsabilidad de diseñar el puente. Ese es exactamente el trabajo de LVL.</p>
+    <div class="northstar">
+      <div class="ns-label">Pregunta norte</div>
+      <div class="ns-q">¿Cómo aceleramos el bienestar de las familias sin acelerarlas?</div>
+      <p class="ns-body">La pregunta no es retórica — es un challenge de diseño real. ¿Cómo ayudas a las familias a ir más rápido en lo que importa — acceso a salud, educación, estabilidad financiera — sin agotarlas, desconectarlas de sus rituales, o reemplazar con tecnología lo que solo funciona si es humano?</p>
+      <p class="ns-body" style="border-top:0.5px solid rgba(0,0,0,0.08);padding-top:.75rem;font-style:italic">La Victoria Lab vive exactamente en esa tensión. Su propósito es acelerar el bienestar familiar — pero si lo hace con las mismas herramientas que el mundo usa para acelerar todo lo demás, corre el riesgo de reproducir el problema en vez de resolverlo.</p>
+    </div>
+    <div class="slabel">5 provocaciones para el equipo</div>
+    <div class="prov"><div class="pmark">◆</div><div class="prov-body"><div class="pif">Si el cuerpo es el primer territorio del bienestar...</div><div class="ptxt">¿Cómo deberían cambiar los espacios físicos de Intercorp para hablar al sistema nervioso de las familias, no solo a su billetera?</div></div></div>
+    <div class="prov"><div class="pmark">◆</div><div class="prov-body"><div class="pif">Si las familias ya tienen sus rituales propios...</div><div class="ptxt">¿Qué tiene que ser verdad sobre un producto o servicio para que una familia decida incorporarlo a su vida cotidiana?</div></div></div>
+    <div class="prov"><div class="pmark">◆</div><div class="prov-body"><div class="pif">Si el cuidado genuino es acompañar en lo incómodo...</div><div class="ptxt">¿Qué puede diseñar LVL para estar presente en los momentos de quiebre que el mercado prefiere ignorar?</div></div></div>
+    <div class="prov"><div class="pmark">◆</div><div class="prov-body"><div class="pif">Si la IA más poderosa escucha lo invisible...</div><div class="ptxt">¿Qué está filtrando LVL sin darse cuenta sobre las familias peruanas?</div></div></div>
+    <div class="prov"><div class="pmark">◆</div><div class="prov-body"><div class="pif">Si diseñamos desde adentro de la cultura latinoamericana...</div><div class="ptxt">¿Qué tiene LVL que ningún laboratorio de diseño externo puede replicar?</div></div></div>
+    <div class="foot"><span>La Victoria Lab · Intercorp</span><span>Síntesis SXSW 2026 · Austin, TX</span></div>
+  </div>
+
+</div>
+
+<script>
+function show(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('on'));document.getElementById(id).classList.add('on');el.classList.add('on')}
+function tog(card){card.classList.toggle('open')}
+function togp(card){card.classList.toggle('open')}
+function togt(bar){bar.classList.toggle('open')}
+function gtog(card){card.classList.toggle('open')}
+function toggleMore(btn){const exp=btn.nextElementSibling;const arrow=btn.querySelector('span');exp.classList.toggle('open');arrow.textContent=exp.classList.contains('open')?'−':'+';btn.childNodes[1].textContent=exp.classList.contains('open')?' ver menos':' ver más'}
+</script>
+</body>
+</html>
